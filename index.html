@@ -5,35 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mythic Online Keyboard Test</title>
 <style>
-  * {margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif;}
-  body {background:#fff; color:#000; transition:0.3s; display:flex; flex-direction:column; align-items:center; padding:20px;}
-  h1 {margin-bottom:20px; text-align:center;}
-  .controls {margin-bottom:20px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;}
-  .controls button {padding:8px 12px; border:none; cursor:pointer; border-radius:5px; transition:0.2s;}
-  .controls button:hover {opacity:0.8;}
-  .keyboard {display:grid; gap:3px; background:#f0f0f0; padding:10px; border-radius:10px; user-select:none; grid-template-columns: repeat(15, 50px);}
-  .key {padding:5px; text-align:center; border-radius:5px; border:1px solid #ccc; min-width:40px; min-height:40px; cursor:pointer; transition:0.2s; display:flex; align-items:center; justify-content:center; font-size:12px;}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+  body{background:#fff;color:#000;transition:0.3s;display:flex;flex-direction:column;align-items:center;padding:20px;}
+  h1{margin-bottom:20px;text-align:center;}
+  .controls{margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+  .controls button{padding:8px 12px;border:none;cursor:pointer;border-radius:5px;transition:0.2s;}
+  .controls button:hover{opacity:0.8;}
+  
+  /* Keyboard container */
+  .keyboard{display:flex;flex-direction:column;gap:5px;background:#f0f0f0;padding:15px;border-radius:10px;user-select:none;}
+  .row{display:flex;gap:5px;}
+  .key{padding:10px;text-align:center;border-radius:5px;border:1px solid #ccc;cursor:pointer;transition:0.2s;display:flex;align-items:center;justify-content:center;font-size:12px;user-select:none;}
+  
+  /* Realistic key widths */
+  .key.wide{min-width:80px;}
+  .key.space{min-width:300px;}
+  .key.tab{min-width:60px;}
+  .key.caps{min-width:70px;}
+  .key.enter{min-width:90px;}
+  .key.shift{min-width:100px;}
   
   /* Themes */
-  body.simple {background:#fff; color:#000;}
-  body.simple .keyboard {background:#e0e0e0;}
-  body.simple .key {background:#fff; color:#000; border:1px solid #aaa;}
-  body.simple .key.active {background:#4CAF50; color:#fff;}
+  body.simple{background:#fff;color:#000;}
+  body.simple .keyboard{background:#e0e0e0;}
+  body.simple .key{background:#fff;color:#000;border:1px solid #aaa;}
+  body.simple .key.active{background:#4CAF50;color:#fff;}
   
-  body.dark {background:#000; color:#fff;}
-  body.dark .keyboard {background:#111;}
-  body.dark .key {background:#222; color:#fff; border:1px solid #555;}
-  body.dark .key.active {background:#ff5722; color:#fff;}
+  body.dark{background:#000;color:#fff;}
+  body.dark .keyboard{background:#111;}
+  body.dark .key{background:#222;color:#fff;border:1px solid #555;}
+  body.dark .key.active{background:#ff5722;color:#fff;}
   
-  body.neon {background:#000; color:#fff; animation: neonBG 10s linear infinite;}
-  body.neon .keyboard {background: rgba(0,0,0,0.6);}
-  body.neon .key {background:#111; color:#0ff; border:1px solid #0ff; box-shadow:0 0 3px #0ff;}
-  body.neon .key.active {background:#ff0; color:#000; box-shadow:0 0 10px #ff0;}
+  body.neon{background:#000;color:#fff;animation:neonBG 10s linear infinite;}
+  body.neon .keyboard{background:rgba(0,0,0,0.6);}
+  body.neon .key{background:#111;color:#0ff;border:1px solid #0ff;box-shadow:0 0 3px #0ff;}
+  body.neon .key.active{background:#ff0;color:#000;box-shadow:0 0 10px #ff0;}
   
-  @keyframes neonBG {
-    0% {background: linear-gradient(270deg, #ff00ff, #00ffff);}
-    50% {background: linear-gradient(270deg, #00ffff, #ff00ff);}
-    100% {background: linear-gradient(270deg, #ff00ff, #00ffff);}
+  @keyframes neonBG{
+    0%{background: linear-gradient(270deg,#ff00ff,#00ffff);}
+    50%{background: linear-gradient(270deg,#00ffff,#ff00ff);}
+    100%{background: linear-gradient(270deg,#ff00ff,#00ffff);}
   }
 </style>
 </head>
@@ -54,14 +65,15 @@
 
 <script>
 const keyboardLayout = [
-  ['Esc','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12','PrtSc','ScrLk','Pause'],
-  ['`','1','2','3','4','5','6','7','8','9','0','-','=','Backspace'],
-  ['Tab','Q','W','E','R','T','Y','U','I','O','P','[',']','\\'],
-  ['Caps','A','S','D','F','G','H','J','K','L',';','\'','Enter'],
-  ['Shift','Z','X','C','V','B','N','M',',','.','/','Shift'],
-  ['Ctrl','Win','Alt','Space','Alt','Win','Menu','Ctrl'],
-  ['Ins','Home','PgUp','Del','End','PgDn','↑','←','↓','→'],
-  ['NumLock','/','*','-','7','8','9','+','4','5','6','1','2','3','0','.']
+  // Row, key, optional class
+  [['Esc'],['F1'],['F2'],['F3'],['F4'],['F5'],['F6'],['F7'],['F8'],['F9'],['F10'],['F11'],['F12'],['PrtSc'],['ScrLk'],['Pause']],
+  [['`'],['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8'],['9'],['0'],['-'],['='],['Backspace','wide']],
+  [['Tab','tab'],['Q'],['W'],['E'],['R'],['T'],['Y'],['U'],['I'],['O'],['P'],['['],[']'],['\\']],
+  [['Caps','caps'],['A'],['S'],['D'],['F'],['G'],['H'],['J'],['K'],['L'],[';'],['\''],['Enter','enter']],
+  [['Shift','shift'],['Z'],['X'],['C'],['V'],['B'],['N'],['M'],[','],['.'],['/'],['Shift','shift']],
+  [['Ctrl'],['Win'],['Alt'],['Space','space'],['Alt'],['Win'],['Menu'],['Ctrl']],
+  [['Ins'],['Home'],['PgUp'],['Del'],['End'],['PgDn'],['↑'],['←'],['↓'],['→']],
+  [['NumLock'],['/'],['*'],['-'],['7'],['8'],['9'],['+'],['4'],['5'],['6'],['1'],['2'],['3'],['0'],['.']]
 ];
 
 const keyboardDiv = document.getElementById('keyboard');
@@ -70,46 +82,50 @@ let soundOn = true;
 
 // Generate keyboard
 keyboardLayout.forEach(row => {
-  row.forEach(key => {
+  const rowDiv = document.createElement('div');
+  rowDiv.classList.add('row');
+  row.forEach(item => {
     const keyDiv = document.createElement('div');
     keyDiv.classList.add('key');
-    keyDiv.textContent = key;
-    keyboardDiv.appendChild(keyDiv);
+    keyDiv.textContent = item[0];
+    if(item[1]) keyDiv.classList.add(item[1]); // add class for width
+
+    rowDiv.appendChild(keyDiv);
 
     // Mouse click highlight
-    keyDiv.addEventListener('click', () => {
+    keyDiv.addEventListener('click',()=>{
       keyDiv.classList.add('active');
-      if(soundOn) { keySound.currentTime = 0; keySound.play(); }
+      if(soundOn){ keySound.currentTime=0; keySound.play(); }
     });
   });
+  keyboardDiv.appendChild(rowDiv);
 });
 
-// Permanent key highlight on keyboard press
-document.addEventListener('keydown', (e) => {
+// Keyboard press highlight
+document.addEventListener('keydown',(e)=>{
   const pressedKey = e.key.toUpperCase();
-  document.querySelectorAll('.key').forEach(k => {
-    if(k.textContent.toUpperCase() === pressedKey || 
-       (pressedKey===' ' && k.textContent==='Space')) {
+  document.querySelectorAll('.key').forEach(k=>{
+    if(k.textContent.toUpperCase()===pressedKey||(pressedKey===' '&&k.textContent==='Space')){
       k.classList.add('active');
-      if(soundOn) { keySound.currentTime = 0; keySound.play(); }
+      if(soundOn){ keySound.currentTime=0; keySound.play(); }
     }
   });
 });
 
 // Reset
-document.getElementById('reset').addEventListener('click', () => {
-  document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
+document.getElementById('reset').addEventListener('click',()=>{
+  document.querySelectorAll('.key').forEach(k=>k.classList.remove('active'));
 });
 
 // Themes
-document.getElementById('simple').addEventListener('click', ()=>{ document.body.className='simple'; });
-document.getElementById('dark').addEventListener('click', ()=>{ document.body.className='dark'; });
-document.getElementById('neon').addEventListener('click', ()=>{ document.body.className='neon'; });
+document.getElementById('simple').addEventListener('click',()=>{document.body.className='simple';});
+document.getElementById('dark').addEventListener('click',()=>{document.body.className='dark';});
+document.getElementById('neon').addEventListener('click',()=>{document.body.className='neon';});
 
 // Sound toggle
-document.getElementById('soundToggle').addEventListener('click', ()=>{
-  soundOn = !soundOn;
-  document.getElementById('soundToggle').textContent = 'Sound: ' + (soundOn?'On':'Off');
+document.getElementById('soundToggle').addEventListener('click',()=>{
+  soundOn=!soundOn;
+  document.getElementById('soundToggle').textContent='Sound: '+(soundOn?'On':'Off');
 });
 </script>
 </body>
