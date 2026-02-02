@@ -2,202 +2,132 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Full Pro Keyboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mythic Online Keyboard Test</title>
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        height: 100vh;
-        padding-top: 20px;
-        transition: 0.3s;
-    }
+  /* Common Reset */
+  * {margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif;}
+  body {background: #fff; color: #000; transition: 0.3s; display: flex; flex-direction: column; align-items: center; padding: 20px;}
 
-    /* MODES */
-    body.simple { background: white; color: black; }
-    body.dark   { background: black; color: white; }
-    body.neon   { background: #050505; color: #39ff14; }
+  h1 {margin-bottom: 20px; text-align: center;}
+  
+  /* Buttons container */
+  .controls {margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;}
+  .controls button {padding: 10px 15px; border: none; cursor: pointer; border-radius: 5px; transition: 0.2s;}
+  .controls button:hover {opacity: 0.8;}
 
-    /* Buttons */
-    .top-buttons{
-        margin-bottom: 20px;
-        display: flex;
-        gap: 12px;
-    }
-    button{
-        padding: 10px 20px;
-        cursor: pointer;
-        border-radius: 6px;
-        border: none;
-        font-size: 16px;
-    }
-    #modeBtn { background: #007bff; color:white; }
-    #soundBtn { background: #ff00aa; color:white; }
-    .hidden { display:none; }
+  /* Keyboard container */
+  .keyboard {display: inline-grid; gap: 5px; background: #f0f0f0; padding: 20px; border-radius: 10px; user-select: none;}
+  .key {padding: 15px; text-align: center; border-radius: 5px; border: 1px solid #ccc; min-width: 40px; min-height: 40px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;}
+  .key.active {background: #00f; color: #fff;}
 
-    /* Keyboard Layout */
-    .keyboard{
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
+  /* Themes */
+  body.simple {background: #fff; color: #000;}
+  body.simple .keyboard {background: #e0e0e0;}
+  body.simple .key {background: #fff; color: #000; border: 1px solid #aaa;}
+  body.simple .key.active {background: #4CAF50; color: #fff;}
 
-    .row{
-        display: flex;
-        gap: 8px;
-    }
+  body.dark {background: #000; color: #fff;}
+  body.dark .keyboard {background: #111;}
+  body.dark .key {background: #222; color: #fff; border: 1px solid #555;}
+  body.dark .key.active {background: #ff5722; color: #fff;}
 
-    .key{
-        background: #e6e6e6;
-        padding: 15px;
-        min-width: 55px;
-        text-align: center;
-        border-radius: 6px;
-        font-size: 16px;
-        user-select: none;
-        transition: 0.1s;
-    }
+  body.neon {background: #000; color: #fff; animation: neonBG 10s linear infinite;}
+  body.neon .keyboard {background: rgba(0,0,0,0.6);}
+  body.neon .key {background: #111; color: #0ff; border: 1px solid #0ff; box-shadow: 0 0 5px #0ff;}
+  body.neon .key.active {background: #ff0; color: #000; box-shadow: 0 0 20px #ff0;}
 
-    /* WIDTHS */
-    .key.backspace{ min-width: 120px; }
-    .key.tab{ min-width: 90px; }
-    .key.caps{ min-width: 110px; }
-    .key.enter{ min-width: 130px; }
-    .key.shift{ min-width: 140px; }
-    .key.space{ min-width: 400px; }
-    .key.ctrl, .key.alt, .key.win, .key.menu { min-width: 70px; }
-
-    /* Simple Press */
-    body.simple .key.active { background: lightblue; }
-
-    /* Dark Mode */
-    body.dark .key{ background:#222; color:white; }
-    body.dark .key.active{ background:#555; }
-
-    /* Neon Mode */
-    body.neon .key{
-        background:#111;
-        color:#39ff14;
-        border:2px solid #39ff14;
-        box-shadow:0 0 8px #39ff14;
-    }
-    body.neon .key.active{
-        background:#39ff14;
-        color:black;
-        box-shadow:0 0 20px #39ff14;
-    }
+  @keyframes neonBG {
+    0% {background: linear-gradient(270deg, #ff00ff, #00ffff);}
+    50% {background: linear-gradient(270deg, #00ffff, #ff00ff);}
+    100% {background: linear-gradient(270deg, #ff00ff, #00ffff);}
+  }
 </style>
 </head>
 <body class="simple">
+<h1>Mythic Online Keyboard Test</h1>
 
-<div class="top-buttons">
-    <button id="modeBtn">Mode: Simple</button>
-    <button id="soundBtn" class="hidden">Sound: ON</button>
+<div class="controls">
+  <button id="simple">Simple</button>
+  <button id="dark">Dark</button>
+  <button id="neon">Neon</button>
+  <button id="soundToggle">Sound: On</button>
+  <button id="reset">Reset Keys</button>
 </div>
 
-<div class="keyboard">
-
-    <!-- Row 1 -->
-    <div class="row">
-        <div class="key">Esc</div>
-        <div class="key">F1</div><div class="key">F2</div><div class="key">F3</div><div class="key">F4</div>
-        <div class="key">F5</div><div class="key">F6</div><div class="key">F7</div><div class="key">F8</div>
-        <div class="key">F9</div><div class="key">F10</div><div class="key">F11</div><div class="key">F12</div>
-    </div>
-
-    <!-- Row 2 -->
-    <div class="row">
-        <div class="key">~</div><div class="key">1</div><div class="key">2</div><div class="key">3</div>
-        <div class="key">4</div><div class="key">5</div><div class="key">6</div><div class="key">7</div>
-        <div class="key">8</div><div class="key">9</div><div class="key">0</div><div class="key">-</div><div class="key">=</div>
-        <div class="key backspace">Backspace</div>
-    </div>
-
-    <!-- Row 3 -->
-    <div class="row">
-        <div class="key tab">Tab</div>
-        <div class="key">Q</div><div class="key">W</div><div class="key">E</div><div class="key">R</div>
-        <div class="key">T</div><div class="key">Y</div><div class="key">U</div><div class="key">I</div>
-        <div class="key">O</div><div class="key">P</div><div class="key">[</div><div class="key">]</div><div class="key">\</div>
-    </div>
-
-    <!-- Row 4 -->
-    <div class="row">
-        <div class="key caps">CapsLock</div>
-        <div class="key">A</div><div class="key">S</div><div class="key">D</div><div class="key">F</div>
-        <div class="key">G</div><div class="key">H</div><div class="key">J</div><div class="key">K</div>
-        <div class="key">L</div><div class="key">;</div><div class="key">'</div>
-        <div class="key enter">Enter</div>
-    </div>
-
-    <!-- Row 5 -->
-    <div class="row">
-        <div class="key shift">Shift</div>
-        <div class="key">Z</div><div class="key">X</div><div class="key">C</div><div class="key">V</div>
-        <div class="key">B</div><div class="key">N</div><div class="key">M</div>
-        <div class="key">,</div><div class="key">.</div><div class="key">/</div>
-        <div class="key shift">Shift</div>
-    </div>
-
-    <!-- Row 6 -->
-    <div class="row">
-        <div class="key ctrl">Ctrl</div>
-        <div class="key win">Win</div>
-        <div class="key alt">Alt</div>
-        <div class="key space">Space</div>
-        <div class="key alt">Alt</div>
-        <div class="key menu">Menu</div>
-        <div class="key ctrl">Ctrl</div>
-    </div>
-
+<div class="keyboard" id="keyboard">
+  <!-- Keyboard keys will be generated by JS -->
 </div>
+
+<audio id="keySound" src="https://www.soundjay.com/button/sounds/button-16.mp3"></audio>
 
 <script>
-/* MODES */
-const modes = ["simple", "dark", "neon"];
-let modeIndex = 0;
+const keyboardLayout = [
+  ['Esc','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12','PrtSc','Scroll','Pause'],
+  ['~','1','2','3','4','5','6','7','8','9','0','-','=','Backspace'],
+  ['Tab','Q','W','E','R','T','Y','U','I','O','P','[',']','\\'],
+  ['Caps','A','S','D','F','G','H','J','K','L',';','\'','Enter'],
+  ['Shift','Z','X','C','V','B','N','M',',','.','/','Shift'],
+  ['Ctrl','Win','Alt','Space','Alt','Win','Menu','Ctrl'],
+  ['Ins','Home','PgUp','Del','End','PgDn','↑','←','↓','→'],
+  ['NumLock','/','*','-','7','8','9','+','4','5','6','1','2','3','0','.']
+];
 
-const modeBtn = document.getElementById("modeBtn");
-const soundBtn = document.getElementById("soundBtn");
+const keyboardDiv = document.getElementById('keyboard');
+const keySound = document.getElementById('keySound');
 let soundOn = true;
 
-modeBtn.onclick = () => {
-    modeIndex = (modeIndex + 1) % 3;
-    const newMode = modes[modeIndex];
+// Generate keyboard
+keyboardLayout.forEach(row => {
+  row.forEach(key => {
+    const keyDiv = document.createElement('div');
+    keyDiv.classList.add('key');
+    keyDiv.textContent = key;
+    keyboardDiv.appendChild(keyDiv);
+  });
+});
 
-    document.body.className = newMode;
-    modeBtn.textContent = "Mode: " + newMode.charAt(0).toUpperCase() + newMode.slice(1);
-    soundBtn.classList.toggle("hidden", newMode !== "neon");
-};
-
-soundBtn.onclick = () => {
-    soundOn = !soundOn;
-    soundBtn.textContent = "Sound: " + (soundOn ? "ON" : "OFF");
-};
-
-/* CLICK SOUND */
-function playClick(){
-    if(!soundOn) return;
-    const audio = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-classic-click-1117.mp3");
-    audio.volume = 0.3;
-    audio.play();
-}
-
-/* KEY PRESS ANIMATION */
-document.addEventListener("keydown", e => {
-    const key = [...document.querySelectorAll(".key")]
-        .find(k => k.textContent.toUpperCase() === e.key.toUpperCase());
-
-    if(key){
-        key.classList.add("active");
-        if(document.body.classList.contains("neon")) playClick();
-        setTimeout(()=> key.classList.remove("active"),150);
+// Key press highlighting
+document.addEventListener('keydown', (e) => {
+  const keyDivs = Array.from(document.querySelectorAll('.key'));
+  const pressedKey = e.key.toUpperCase();
+  keyDivs.forEach(k => {
+    if (k.textContent.toUpperCase() === pressedKey) {
+      k.classList.add('active');
+      if(soundOn) keySound.currentTime = 0; keySound.play();
     }
+  });
+});
+
+// Mouse click on keys
+document.querySelectorAll('.key').forEach(k => {
+  k.addEventListener('click', () => {
+    k.classList.add('active');
+    if(soundOn) { keySound.currentTime = 0; keySound.play(); }
+  });
+});
+
+// Reset button
+document.getElementById('reset').addEventListener('click', () => {
+  document.querySelectorAll('.key').forEach(k => k.classList.remove('active'));
+});
+
+// Theme buttons
+document.getElementById('simple').addEventListener('click', () => {
+  document.body.className = 'simple';
+});
+document.getElementById('dark').addEventListener('click', () => {
+  document.body.className = 'dark';
+});
+document.getElementById('neon').addEventListener('click', () => {
+  document.body.className = 'neon';
+});
+
+// Sound toggle
+document.getElementById('soundToggle').addEventListener('click', () => {
+  soundOn = !soundOn;
+  document.getElementById('soundToggle').textContent = 'Sound: ' + (soundOn ? 'On' : 'Off');
 });
 </script>
-
 </body>
 </html>
