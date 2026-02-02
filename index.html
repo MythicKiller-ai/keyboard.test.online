@@ -2,237 +2,201 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Cyberpunk Keyboard Tester</title>
-
+<title>Full Pro Keyboard</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
-body{
-    background:#050505;
-    color:white;
-    text-align:center;
-    padding:20px;
-    overflow-x:hidden;
-}
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: 100vh;
+        padding-top: 20px;
+        transition: 0.3s;
+    }
 
-/* RGB Neon Glow */
-@keyframes rgbGlow{
-    0%{box-shadow:0 0 10px #ff0080;}
-    25%{box-shadow:0 0 10px #00ffff;}
-    50%{box-shadow:0 0 10px #39ff14;}
-    75%{box-shadow:0 0 10px #ff9900;}
-    100%{box-shadow:0 0 10px #ff0080;}
-}
+    /* MODES */
+    body.simple { background: white; color: black; }
+    body.dark   { background: black; color: white; }
+    body.neon   { background: #050505; color: #39ff14; }
 
-.container{
-    display:inline-block;
-    padding:20px;
-}
+    /* Buttons */
+    .top-buttons{
+        margin-bottom: 20px;
+        display: flex;
+        gap: 12px;
+    }
+    button{
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 6px;
+        border: none;
+        font-size: 16px;
+    }
+    #modeBtn { background: #007bff; color:white; }
+    #soundBtn { background: #ff00aa; color:white; }
+    .hidden { display:none; }
 
-.row{
-    display:flex;
-    justify-content:center;
-    margin:4px;
-}
+    /* Keyboard Layout */
+    .keyboard{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 
-.key{
-    border:2px solid #444;
-    width:55px;
-    height:55px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:3px;
-    border-radius:6px;
-    transition:0.2s;
-    background:#111;
-    color:#fff;
-    animation:rgbGlow 3s infinite linear;
-}
+    .row{
+        display: flex;
+        gap: 8px;
+    }
 
-/* Large keys */
-.wide{width:120px;}
-.wider{width:150px;}
-.space{width:300px;}
+    .key{
+        background: #e6e6e6;
+        padding: 15px;
+        min-width: 55px;
+        text-align: center;
+        border-radius: 6px;
+        font-size: 16px;
+        user-select: none;
+        transition: 0.1s;
+    }
 
-/* PRESS EFFECT */
-.key.pressed{
-    background:black !important;
-    transform:scale(1.1);
-    border-color:#fff;
-    box-shadow:0 0 25px #00eaff;
-}
+    /* WIDTHS */
+    .key.backspace{ min-width: 120px; }
+    .key.tab{ min-width: 90px; }
+    .key.caps{ min-width: 110px; }
+    .key.enter{ min-width: 130px; }
+    .key.shift{ min-width: 140px; }
+    .key.space{ min-width: 400px; }
+    .key.ctrl, .key.alt, .key.win, .key.menu { min-width: 70px; }
 
-/* Meter */
-#meter{
-    margin:20px 0;
-    font-size:22px;
-    color:#39ff14;
-}
+    /* Simple Press */
+    body.simple .key.active { background: lightblue; }
 
-/* Reset Button */
-#resetBtn{
-    padding:10px 25px;
-    margin-top:15px;
-    border:none;
-    border-radius:6px;
-    background:#ff0066;
-    color:white;
-    font-size:18px;
-    cursor:pointer;
-    transition:0.3s;
-}
-#resetBtn:hover{background:#ff3399;}
+    /* Dark Mode */
+    body.dark .key{ background:#222; color:white; }
+    body.dark .key.active{ background:#555; }
+
+    /* Neon Mode */
+    body.neon .key{
+        background:#111;
+        color:#39ff14;
+        border:2px solid #39ff14;
+        box-shadow:0 0 8px #39ff14;
+    }
+    body.neon .key.active{
+        background:#39ff14;
+        color:black;
+        box-shadow:0 0 20px #39ff14;
+    }
 </style>
 </head>
+<body class="simple">
 
-<body>
+<div class="top-buttons">
+    <button id="modeBtn">Mode: Simple</button>
+    <button id="soundBtn" class="hidden">Sound: ON</button>
+</div>
 
-<h1 style="font-size:40px; margin-bottom:10px;">CYBERPUNK KEYBOARD TESTER</h1>
+<div class="keyboard">
 
-<div id="meter">Keystrokes: 0</div>
-
-<button id="resetBtn">Reset Keys</button>
-
-<div class="container" id="keyboard">
-    
-    <!-- ROW 1 -->
+    <!-- Row 1 -->
     <div class="row">
-        <div class="key" data-key="esc">Esc</div>
-        <div class="key" data-key="f1">F1</div>
-        <div class="key" data-key="f2">F2</div>
-        <div class="key" data-key="f3">F3</div>
-        <div class="key" data-key="f4">F4</div>
-        <div class="key" data-key="f5">F5</div>
-        <div class="key" data-key="f6">F6</div>
-        <div class="key" data-key="f7">F7</div>
-        <div class="key" data-key="f8">F8</div>
-        <div class="key" data-key="f9">F9</div>
-        <div class="key" data-key="f10">F10</div>
-        <div class="key" data-key="f11">F11</div>
-        <div class="key" data-key="f12">F12</div>
+        <div class="key">Esc</div>
+        <div class="key">F1</div><div class="key">F2</div><div class="key">F3</div><div class="key">F4</div>
+        <div class="key">F5</div><div class="key">F6</div><div class="key">F7</div><div class="key">F8</div>
+        <div class="key">F9</div><div class="key">F10</div><div class="key">F11</div><div class="key">F12</div>
     </div>
 
-    <!-- ROW 2 -->
+    <!-- Row 2 -->
     <div class="row">
-        <div class="key" data-key="`">`</div>
-        <div class="key" data-key="1">1</div>
-        <div class="key" data-key="2">2</div>
-        <div class="key" data-key="3">3</div>
-        <div class="key" data-key="4">4</div>
-        <div class="key" data-key="5">5</div>
-        <div class="key" data-key="6">6</div>
-        <div class="key" data-key="7">7</div>
-        <div class="key" data-key="8">8</div>
-        <div class="key" data-key="9">9</div>
-        <div class="key" data-key="0">0</div>
-        <div class="key" data-key="-">-</div>
-        <div class="key" data-key="=">=</div>
-        <div class="key wide" data-key="backspace">Backspace</div>
+        <div class="key">~</div><div class="key">1</div><div class="key">2</div><div class="key">3</div>
+        <div class="key">4</div><div class="key">5</div><div class="key">6</div><div class="key">7</div>
+        <div class="key">8</div><div class="key">9</div><div class="key">0</div><div class="key">-</div><div class="key">=</div>
+        <div class="key backspace">Backspace</div>
     </div>
 
-    <!-- ROW 3 -->
+    <!-- Row 3 -->
     <div class="row">
-        <div class="key wide" data-key="tab">Tab</div>
-        <div class="key" data-key="q">Q</div>
-        <div class="key" data-key="w">W</div>
-        <div class="key" data-key="e">E</div>
-        <div class="key" data-key="r">R</div>
-        <div class="key" data-key="t">T</div>
-        <div class="key" data-key="y">Y</div>
-        <div class="key" data-key="u">U</div>
-        <div class="key" data-key="i">I</div>
-        <div class="key" data-key="o">O</div>
-        <div class="key" data-key="p">P</div>
-        <div class="key" data-key="[">[</div>
-        <div class="key" data-key="]">]</div>
-        <div class="key" data-key="\">\</div>
+        <div class="key tab">Tab</div>
+        <div class="key">Q</div><div class="key">W</div><div class="key">E</div><div class="key">R</div>
+        <div class="key">T</div><div class="key">Y</div><div class="key">U</div><div class="key">I</div>
+        <div class="key">O</div><div class="key">P</div><div class="key">[</div><div class="key">]</div><div class="key">\</div>
     </div>
 
-    <!-- ROW 4 -->
+    <!-- Row 4 -->
     <div class="row">
-        <div class="key wider" data-key="capslock">Caps</div>
-        <div class="key" data-key="a">A</div>
-        <div class="key" data-key="s">S</div>
-        <div class="key" data-key="d">D</div>
-        <div class="key" data-key="f">F</div>
-        <div class="key" data-key="g">G</div>
-        <div class="key" data-key="h">H</div>
-        <div class="key" data-key="j">J</div>
-        <div class="key" data-key="k">K</div>
-        <div class="key" data-key="l">L</div>
-        <div class="key" data-key=";">;</div>
-        <div class="key" data-key="'">'</div>
-        <div class="key wide" data-key="enter">Enter</div>
+        <div class="key caps">CapsLock</div>
+        <div class="key">A</div><div class="key">S</div><div class="key">D</div><div class="key">F</div>
+        <div class="key">G</div><div class="key">H</div><div class="key">J</div><div class="key">K</div>
+        <div class="key">L</div><div class="key">;</div><div class="key">'</div>
+        <div class="key enter">Enter</div>
     </div>
 
-    <!-- ROW 5 -->
+    <!-- Row 5 -->
     <div class="row">
-        <div class="key wider" data-key="shift">Shift</div>
-        <div class="key" data-key="z">Z</div>
-        <div class="key" data-key="x">X</div>
-        <div class="key" data-key="c">C</div>
-        <div class="key" data-key="v">V</div>
-        <div class="key" data-key="b">B</div>
-        <div class="key" data-key="n">N</div>
-        <div class="key" data-key="m">M</div>
-        <div class="key" data-key=",">,</div>
-        <div class="key" data-key=".">.</div>
-        <div class="key" data-key="/">/</div>
-        <div class="key wider" data-key="shift">Shift</div>
+        <div class="key shift">Shift</div>
+        <div class="key">Z</div><div class="key">X</div><div class="key">C</div><div class="key">V</div>
+        <div class="key">B</div><div class="key">N</div><div class="key">M</div>
+        <div class="key">,</div><div class="key">.</div><div class="key">/</div>
+        <div class="key shift">Shift</div>
     </div>
 
-    <!-- ROW 6 -->
+    <!-- Row 6 -->
     <div class="row">
-        <div class="key" data-key="ctrl">Ctrl</div>
-        <div class="key" data-key="meta">Win</div>
-        <div class="key" data-key="alt">Alt</div>
-        <div class="key space" data-key=" ">Space</div>
-        <div class="key" data-key="alt">Alt</div>
-        <div class="key" data-key="contextmenu">Menu</div>
-        <div class="key" data-key="ctrl">Ctrl</div>
+        <div class="key ctrl">Ctrl</div>
+        <div class="key win">Win</div>
+        <div class="key alt">Alt</div>
+        <div class="key space">Space</div>
+        <div class="key alt">Alt</div>
+        <div class="key menu">Menu</div>
+        <div class="key ctrl">Ctrl</div>
     </div>
 
 </div>
 
 <script>
-let keys = document.querySelectorAll(".key");
-let keyCount = 0;
-let meter = document.getElementById("meter");
+/* MODES */
+const modes = ["simple", "dark", "neon"];
+let modeIndex = 0;
 
-let sound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-soft-button-click-1127.mp3");
+const modeBtn = document.getElementById("modeBtn");
+const soundBtn = document.getElementById("soundBtn");
+let soundOn = true;
 
-function highlight(key){
-    keys.forEach(k=>{
-        if(k.dataset.key === key) k.classList.add("pressed");
-    });
-}
+modeBtn.onclick = () => {
+    modeIndex = (modeIndex + 1) % 3;
+    const newMode = modes[modeIndex];
 
-function unHighlight(key){
-    keys.forEach(k=>{
-        if(k.dataset.key === key) k.classList.remove("pressed");
-    });
-}
-
-document.addEventListener("keydown", e=>{
-    let key = e.key.toLowerCase();
-    highlight(key);
-    sound.currentTime = 0;
-    sound.play();
-    keyCount++;
-    meter.innerText = "Keystrokes: " + keyCount;
-});
-
-document.addEventListener("keyup", e=>{
-    let key = e.key.toLowerCase();
-    unHighlight(key);
-});
-
-/* RESET BUTTON */
-document.getElementById("resetBtn").onclick = ()=>{
-    keys.forEach(k=>k.classList.remove("pressed"));
-    keyCount = 0;
-    meter.innerText = "Keystrokes: 0";
+    document.body.className = newMode;
+    modeBtn.textContent = "Mode: " + newMode.charAt(0).toUpperCase() + newMode.slice(1);
+    soundBtn.classList.toggle("hidden", newMode !== "neon");
 };
+
+soundBtn.onclick = () => {
+    soundOn = !soundOn;
+    soundBtn.textContent = "Sound: " + (soundOn ? "ON" : "OFF");
+};
+
+/* CLICK SOUND */
+function playClick(){
+    if(!soundOn) return;
+    const audio = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-classic-click-1117.mp3");
+    audio.volume = 0.3;
+    audio.play();
+}
+
+/* KEY PRESS ANIMATION */
+document.addEventListener("keydown", e => {
+    const key = [...document.querySelectorAll(".key")]
+        .find(k => k.textContent.toUpperCase() === e.key.toUpperCase());
+
+    if(key){
+        key.classList.add("active");
+        if(document.body.classList.contains("neon")) playClick();
+        setTimeout(()=> key.classList.remove("active"),150);
+    }
+});
 </script>
 
 </body>
